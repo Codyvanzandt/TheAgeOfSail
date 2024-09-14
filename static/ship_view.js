@@ -23,7 +23,7 @@ let keyStates = {
 const KEY_REPEAT_INTERVAL = 50;
 
 function initShipView() {
-    shipId = window.location.pathname.split('/')[1];
+    shipId = window.location.pathname.split('/')[2]; // Changed from [1] to [2]
     if (!shipId) {
         console.error('No ship ID provided');
         return;

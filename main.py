@@ -31,6 +31,17 @@ MAP_HEIGHT = 500
 active_connections: Dict[str, WebSocket] = {}
 
 
+class ShipUpdate(BaseModel):
+    ship_id: str
+    value: float
+
+
+class ShipUpdateRequest(BaseModel):
+    ship_id: str
+    key: str
+    value: float
+
+
 @app.websocket("/ws/game")
 async def game_websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
@@ -68,11 +79,6 @@ async def ship_websocket_endpoint(websocket: WebSocket, ship_id: str):
     except WebSocketDisconnect:
         logger.info(f"Ship WebSocket disconnected for ship {ship_id}")
         del active_connections[ship_id]
-
-
-class ShipUpdate(BaseModel):
-    ship_id: str
-    value: float  # This will be either heading or speed
 
 
 def calculate_new_position(
@@ -195,7 +201,7 @@ async def startup_event():
     asyncio.create_task(update_game_state())
 
 
-@app.get("/{ship_id}")
+@app.get("/ship/{ship_id}")
 async def serve_ship_view(ship_id: str):
     if ship_id not in game_state["ships"]:
         raise HTTPException(status_code=404, detail="Ship not found")
@@ -205,6 +211,26 @@ async def serve_ship_view(ship_id: str):
 
     html_content = html_content.replace("{{ship_id}}", ship_id)
     return HTMLResponse(content=html_content)
+
+
+@app.post("/update_ship")
+async def update_ship(update: ShipUpdateRequest):
+    if update.ship_id not in game_state["ships"]:
+        raise HTTPException(status_code=404, detail="Ship not found")
+
+    if update.key not in ["heading", "speed"]:
+        raise HTTPException(
+            status_code=400, detail="Invalid update key. Must be 'heading' or 'speed'"
+        )
+
+    ship_update = ShipUpdate(ship_id=update.ship_id, value=update.value)
+
+    if update.key == "heading":
+        await update_heading(ship_update)
+    elif update.key == "speed":
+        await update_speed(ship_update)
+
+    return {"message": f"Updated {update.key} for ship {update.ship_id}"}
 
 
 async def update_heading(update: ShipUpdate):
