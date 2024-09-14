@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ship View - {{ship_id}}</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        #gameData { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Ship View - {{ship_id}}</h1>
+    <canvas id="shipCanvas"></canvas>
+    <div id="controls">
+        <button id="turnLeftBtn">Turn Left</button>
+        <button id="turnRightBtn">Turn Right</button>
+        <button id="increaseSpeedBtn">Increase Speed</button>
+        <button id="decreaseSpeedBtn">Decrease Speed</button>
+    </div>
+    <div id="gameData">
+        <p>Position: <span id="position"></span></p>
+        <p>Heading: <span id="heading"></span></p>
+        <p>Speed: <span id="speed"></span></p>
+    </div>
+    <script src="/static/ship_view.js"></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "theageofsail"
+version = "0.1.0"
+description = ""
+authors = ["Cody VanZandt <cody.a.vanzandt@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+sse-starlette = "^2.1.3"
+fastapi = "^0.112.2"
+uvicorn = {extras = ["standard"], version = "^0.30.6"}
+lmdb = "^1.5.1"
+jinja2 = "^3.1.4"
+pyzmq = "^26.2.0"
+requests = "^2.32.3"
+numpy = "^2.1.1"
+pygame = "^2.6.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

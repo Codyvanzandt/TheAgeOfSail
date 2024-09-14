@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 550">
+  <!-- Definitions remain unchanged -->
+  <defs>
+    <filter id="paper-texture" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.01" numOctaves="5" result="noise"/>
+      <feDiffuseLighting in="noise" lighting-color="#e8d0a9" surfaceScale="2" result="diffLight">
+        <feDistantLight azimuth="45" elevation="60"/>
+      </feDiffuseLighting>
+      <feComposite operator="in" in="diffLight" in2="SourceGraphic" result="monoNoise"/>
+    </filter>
+    <linearGradient id="parchment-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e8d0a9" />
+      <stop offset="50%" style="stop-color:#d4b982" />
+      <stop offset="100%" style="stop-color:#c2a76c" />
+    </linearGradient>
+    <filter id="handwritten" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="turbulence" baseFrequency="0.05" numOctaves="2" result="noise" seed="1"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="1" xChannelSelector="R" yChannelSelector="G" result="displacedText"/>
+      <feMorphology operator="dilate" radius="0.3" in="displacedText" result="thickenedText"/>
+      <feGaussianBlur stdDeviation="0.5" in="thickenedText" result="blurredText"/>
+      <feBlend in="blurredText" in2="displacedText" mode="normal" result="blendedText"/>
+      <feComponentTransfer in="blendedText" result="fadedText">
+        <feFuncA type="linear" slope="0.9" intercept="0"/>
+      </feComponentTransfer>
+      <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" result="fadeNoise"/>
+      <feDisplacementMap in="fadedText" in2="fadeNoise" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+  
+  <!-- Background with parchment texture -->
+  <rect width="100%" height="100%" fill="url(#parchment-gradient)" filter="url(#paper-texture)"/>
+  
+  <!-- Decorative border (handwritten effect removed) -->
+  <rect x="10" y="10" width="480" height="530" fill="none" stroke="#8B4513" stroke-width="2"/>
+  <rect x="15" y="15" width="470" height="520" fill="none" stroke="#8B4513" stroke-width="1"/>
+  
+  <!-- Title cartouche (handwritten effect removed) -->
+  <path d="M100,10 Q250,0 400,10 Q410,20 400,30 Q250,40 100,30 Q90,20 100,10 Z" fill="#e8d0a9" stroke="#8B4513" stroke-width="1"/>
+  <text filter="url(#handwritten)" x="250" y="25" font-family="serif" font-size="16" fill="#8B4513" text-anchor="middle">Celestial Chart for {{ latitude }}° North Latitude</text>
+
+    <!-- Ecliptic line -->
+  <path filter="url(#handwritten)" d="M30,300 Q250,200 470,300" fill="none" stroke="#6B3E26" stroke-width="1" stroke-dasharray="5,5"/>
+
+  <!-- Outer circle (celestial sphere) -->
+  <circle filter="url(#handwritten)" cx="250" cy="300" r="220" fill="none" stroke="#8B4513" stroke-width="2"/>
+  
+  <!-- Altitude rings -->
+  <circle filter="url(#handwritten)" cx="250" cy="300" r="165" fill="none" stroke="#8B4513" stroke-width="1" stroke-dasharray="5,5"/>
+  <circle filter="url(#handwritten)" cx="250" cy="300" r="110" fill="none" stroke="#8B4513" stroke-width="1" stroke-dasharray="5,5"/>
+  <circle filter="url(#handwritten)" cx="250" cy="300" r="55" fill="none" stroke="#8B4513" stroke-width="1" stroke-dasharray="5,5"/>
+  
+  <!-- Altitude ring labels -->
+  <text filter="url(#handwritten)" x="255" y="135" font-family="'Brush Script MT', cursive" font-size="12" fill="#8B4513" text-anchor="start" style="font-style: italic;">30°</text>
+  <text filter="url(#handwritten)" x="255" y="190" font-family="'Brush Script MT', cursive" font-size="12" fill="#8B4513" text-anchor="start" style="font-style: italic;">60°</text>
+  <text filter="url(#handwritten)" x="255" y="245" font-family="'Brush Script MT', cursive" font-size="12" fill="#8B4513" text-anchor="start" style="font-style: italic;">90°</text>
+  
+  <!-- Labeled stars for navigation -->
+  {% for star in stars %}
+    <circle filter="url(#handwritten)" cx="{{ star[1][0] }}" cy="{{ 600 - star[1][1] }}" r="3" fill="#8B4513"/>
+    <text filter="url(#handwritten)" x="{{ star[1][0] + 10 }}" y="{{ 595 - star[1][1] }}" font-family="'Brush Script MT', cursive" font-size="14" fill="#8B4513" style="font-style: italic;">{{ star[0] }}</text>
+  {% endfor %}
+
+  <!-- Additional stars with varying sizes -->
+  <circle filter="url(#handwritten)" cx="100" cy="150" r="1.5" fill="#8B4513"/>
+  <circle filter="url(#handwritten)" cx="400" cy="150" r="2" fill="#8B4513"/>
+  <circle filter="url(#handwritten)" cx="100" cy="450" r="1" fill="#8B4513"/>
+  <circle filter="url(#handwritten)" cx="400" cy="450" r="1.5" fill="#8B4513"/>
+  <circle filter="url(#handwritten)" cx="250" cy="200" r="2" fill="#8B4513"/>
+  <circle filter="url(#handwritten)" cx="250" cy="400" r="1" fill="#8B4513"/>
+  <circle filter="url(#handwritten)" cx="150" cy="300" r="1.5" fill="#8B4513"/>
+  <circle filter="url(#handwritten)" cx="350" cy="300" r="1" fill="#8B4513"/>
+  <circle filter="url(#handwritten)" cx="175" cy="175" r="0.8" fill="#8B4513"/>
+  <circle filter="url(#handwritten)" cx="325" cy="225" r="1.2" fill="#8B4513"/>
+  <circle filter="url(#handwritten)" cx="225" cy="325" r="1" fill="#8B4513"/>
+  <circle filter="url(#handwritten)" cx="375" cy="375" r="0.8" fill="#8B4513"/>
+  <circle filter="url(#handwritten)" cx="125" cy="275" r="1.2" fill="#8B4513"/>
+  <circle filter="url(#handwritten)" cx="275" cy="425" r="1" fill="#8B4513"/>
+  <circle filter="url(#handwritten)" cx="425" cy="275" r="0.8" fill="#8B4513"/>
+  <circle filter="url(#handwritten)" cx="75" cy="375" r="1" fill="#8B4513"/>
+  
+  <!-- Compass rose (adjusted positioning) -->
+  <text filter="url(#handwritten)" x="250" y="75" font-family="serif" font-size="18" fill="#8B4513" text-anchor="middle">N</text>
+  <text filter="url(#handwritten)" x="478" y="305" font-family="serif" font-size="18" fill="#8B4513" text-anchor="middle">E</text>
+  <text filter="url(#handwritten)" x="250" y="534" font-family="serif" font-size="18" fill="#8B4513" text-anchor="middle">S</text>
+  <text filter="url(#handwritten)" x="22" y="305" font-family="serif" font-size="18" fill="#8B4513" text-anchor="middle">W</text>
+
+  <!-- Author signature -->
+  <text filter="url(#handwritten)" x="380" y="520" font-family="'Brush Script MT', cursive" font-size="12" fill="#8B4513" style="font-style: italic;">J. Flamsteed, 1775</text>
+</svg>

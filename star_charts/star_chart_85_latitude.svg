@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2200">
+  <!-- Definitions with adjusted filter values -->
+  <defs>
+    <filter id="paper-texture" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.0025" numOctaves="5" result="noise"/>
+      <feDiffuseLighting in="noise" lighting-color="#e8d0a9" surfaceScale="8" result="diffLight">
+        <feDistantLight azimuth="45" elevation="60"/>
+      </feDiffuseLighting>
+      <feComposite operator="in" in="diffLight" in2="SourceGraphic" result="monoNoise"/>
+    </filter>
+    <linearGradient id="parchment-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e8d0a9" />
+      <stop offset="50%" style="stop-color:#d4b982" />
+      <stop offset="100%" style="stop-color:#c2a76c" />
+    </linearGradient>
+    <filter id="handwritten" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="turbulence" baseFrequency="0.0125" numOctaves="2" result="noise" seed="1"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G" result="displacedText"/>
+      <feMorphology operator="dilate" radius="1.2" in="displacedText" result="thickenedText"/>
+      <feGaussianBlur stdDeviation="2" in="thickenedText" result="blurredText"/>
+      <feBlend in="blurredText" in2="displacedText" mode="normal" result="blendedText"/>
+      <feComponentTransfer in="blendedText" result="fadedText">
+        <feFuncA type="linear" slope="0.9" intercept="0"/>
+      </feComponentTransfer>
+      <feTurbulence type="fractalNoise" baseFrequency="0.0125" numOctaves="2" result="fadeNoise"/>
+      <feDisplacementMap in="fadedText" in2="fadeNoise" scale="12" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+
+  <!-- Background with parchment texture -->
+  <rect width="100%" height="100%" fill="url(#parchment-gradient)" filter="url(#paper-texture)"/>
+
+  <!-- Decorative border (handwritten effect removed) -->
+  <rect x="40" y="40" width="1920" height="2120" fill="none" stroke="#8B4513" stroke-width="8"/>
+  <rect x="60" y="60" width="1880" height="2080" fill="none" stroke="#8B4513" stroke-width="4"/>
+
+  <!-- Title cartouche (handwritten effect removed) -->
+  <path d="M400,40 Q1000,0 1600,40 Q1640,80 1600,120 Q1000,160 400,120 Q360,80 400,40 Z" fill="#e8d0a9" stroke="#8B4513" stroke-width="4"/>
+  <text filter="url(#handwritten)" x="1000" y="100" font-family="serif" font-size="64" fill="#8B4513" text-anchor="middle">Celestial Chart for 85° North Latitude</text>
+
+  <!-- Ecliptic line -->
+  <path filter="url(#handwritten)" d="M120,1200 Q1000,800 1880,1200" fill="none" stroke="#6B3E26" stroke-width="4" stroke-dasharray="20,20"/>
+
+  <!-- Outer circle (celestial sphere) -->
+  <circle filter="url(#handwritten)" cx="1000" cy="1200" r="880" fill="none" stroke="#8B4513" stroke-width="8"/>
+
+  <!-- Altitude rings -->
+  <circle filter="url(#handwritten)" cx="1000" cy="1200" r="660" fill="none" stroke="#8B4513" stroke-width="4" stroke-dasharray="20,20"/>
+  <circle filter="url(#handwritten)" cx="1000" cy="1200" r="440" fill="none" stroke="#8B4513" stroke-width="4" stroke-dasharray="20,20"/>
+  <circle filter="url(#handwritten)" cx="1000" cy="1200" r="220" fill="none" stroke="#8B4513" stroke-width="4" stroke-dasharray="20,20"/>
+
+  <!-- Altitude ring labels -->
+  <text filter="url(#handwritten)" x="1020" y="540" font-family="'Brush Script MT', cursive" font-size="48" fill="#8B4513" text-anchor="start" style="font-style: italic;">30°</text>
+  <text filter="url(#handwritten)" x="1020" y="760" font-family="'Brush Script MT', cursive" font-size="48" fill="#8B4513" text-anchor="start" style="font-style: italic;">60°</text>
+  <text filter="url(#handwritten)" x="1020" y="980" font-family="'Brush Script MT', cursive" font-size="48" fill="#8B4513" text-anchor="start" style="font-style: italic;">90°</text>
+
+  <!-- Labeled stars for navigation -->
+  
+    <circle filter="url(#handwritten)" cx="564" cy="1488" r="12" fill="#8B4513"/>
+    <text filter="url(#handwritten)" x="604" y="1468" font-family="'Brush Script MT', cursive" font-size="56" fill="#8B4513" style="font-style: italic;">Betelgeuse</text>
+  
+    <circle filter="url(#handwritten)" cx="848" cy="1488" r="12" fill="#8B4513"/>
+    <text filter="url(#handwritten)" x="888" y="1468" font-family="'Brush Script MT', cursive" font-size="56" fill="#8B4513" style="font-style: italic;">Arcturus</text>
+  
+    <circle filter="url(#handwritten)" cx="624" cy="536" r="12" fill="#8B4513"/>
+    <text filter="url(#handwritten)" x="664" y="516" font-family="'Brush Script MT', cursive" font-size="56" fill="#8B4513" style="font-style: italic;">Sirius</text>
+  
+    <circle filter="url(#handwritten)" cx="960" cy="888" r="12" fill="#8B4513"/>
+    <text filter="url(#handwritten)" x="1000" y="868" font-family="'Brush Script MT', cursive" font-size="56" fill="#8B4513" style="font-style: italic;">Vega</text>
+  
+    <circle filter="url(#handwritten)" cx="320" cy="748" r="12" fill="#8B4513"/>
+    <text filter="url(#handwritten)" x="360" y="728" font-family="'Brush Script MT', cursive" font-size="56" fill="#8B4513" style="font-style: italic;">Pollux</text>
+  
+    <circle filter="url(#handwritten)" cx="1768" cy="904" r="12" fill="#8B4513"/>
+    <text filter="url(#handwritten)" x="1808" y="884" font-family="'Brush Script MT', cursive" font-size="56" fill="#8B4513" style="font-style: italic;">Rigel</text>
+  
+    <circle filter="url(#handwritten)" cx="748" cy="1060" r="12" fill="#8B4513"/>
+    <text filter="url(#handwritten)" x="788" y="1040" font-family="'Brush Script MT', cursive" font-size="56" fill="#8B4513" style="font-style: italic;">Deneb</text>
+  
+    <circle filter="url(#handwritten)" cx="1744" cy="1156" r="12" fill="#8B4513"/>
+    <text filter="url(#handwritten)" x="1784" y="1136" font-family="'Brush Script MT', cursive" font-size="56" fill="#8B4513" style="font-style: italic;">Altair</text>
+  
+
+  <!-- Additional stars with varying sizes -->
+  <circle filter="url(#handwritten)" cx="400" cy="600" r="6" fill="#8B4513"/>
+  <circle filter="url(#handwritten)" cx="1600" cy="600" r="8" fill="#8B4513"/>
+  <circle filter="url(#handwritten)" cx="400" cy="1800" r="4" fill="#8B4513"/>
+  <circle filter="url(#handwritten)" cx="1600" cy="1800" r="6" fill="#8B4513"/>
+  <circle filter="url(#handwritten)" cx="1000" cy="800" r="8" fill="#8B4513"/>
+  <circle filter="url(#handwritten)" cx="1000" cy="1600" r="4" fill="#8B4513"/>
+  <circle filter="url(#handwritten)" cx="600" cy="1200" r="6" fill="#8B4513"/>
+  <circle filter="url(#handwritten)" cx="1400" cy="1200" r="4" fill="#8B4513"/>
+  <circle filter="url(#handwritten)" cx="700" cy="700" r="3.2" fill="#8B4513"/>
+  <circle filter="url(#handwritten)" cx="1300" cy="900" r="4.8" fill="#8B4513"/>
+  <circle filter="url(#handwritten)" cx="900" cy="1300" r="4" fill="#8B4513"/>
+  <circle filter="url(#handwritten)" cx="1500" cy="1500" r="3.2" fill="#8B4513"/>
+  <circle filter="url(#handwritten)" cx="500" cy="1100" r="4.8" fill="#8B4513"/>
+  <circle filter="url(#handwritten)" cx="1100" cy="1700" r="4" fill="#8B4513"/>
+  <circle filter="url(#handwritten)" cx="1700" cy="1100" r="3.2" fill="#8B4513"/>
+  <circle filter="url(#handwritten)" cx="300" cy="1500" r="4" fill="#8B4513"/>
+
+  <!-- Compass rose (adjusted positioning) -->
+  <text filter="url(#handwritten)" x="1000" y="300" font-family="serif" font-size="72" fill="#8B4513" text-anchor="middle">N</text>
+  <text filter="url(#handwritten)" x="1912" y="1220" font-family="serif" font-size="72" fill="#8B4513" text-anchor="middle">E</text>
+  <text filter="url(#handwritten)" x="1000" y="2136" font-family="serif" font-size="72" fill="#8B4513" text-anchor="middle">S</text>
+  <text filter="url(#handwritten)" x="88" y="1220" font-family="serif" font-size="72" fill="#8B4513" text-anchor="middle">W</text>
+
+  <!-- Author signature -->
+  <text filter="url(#handwritten)" x="1520" y="2080" font-family="'Brush Script MT', cursive" font-size="48" fill="#8B4513" style="font-style: italic;">J. Flamsteed, 1775</text>
+</svg>
